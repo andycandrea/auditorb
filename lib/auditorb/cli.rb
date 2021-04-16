@@ -15,6 +15,17 @@ module Auditorb
       Presenters::Stdout::Gemfile.new(data).present
     end
 
+    desc 'number_of_gems', 'Returns the number of direct Ruby dependencies'
+    def number_of_gems
+      puts 'Number of direct Ruby dependencies'
+      all_gems = Bundler.load.current_dependencies
+      production_gems = all_gems.select do |dependency|
+        dependency.groups.include?(:default) ||
+          dependency.groups.include?(:production)
+      end
+      puts production_gems.length
+    end
+
     desc 'git_stats', 'Returns git statistics'
     def git_stats
       puts 'Git Statistics'
