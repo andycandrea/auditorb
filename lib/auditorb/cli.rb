@@ -9,6 +9,17 @@ require 'thor'
 
 module Auditorb
   class CLI < Thor
+    desc 'all', 'Run all audit commands'
+    def all
+      analyze_gemfile
+      puts divider
+      number_of_gems
+      puts divider
+      stats
+      puts divider
+      git_stats
+    end
+
     desc 'analyze_gemfile', 'Analyze your installed gems'
     def analyze_gemfile
       data = GemfileAnalyzer.new.analyze
@@ -37,6 +48,10 @@ module Auditorb
       puts 'Git Statistics'
       data = GitAnalyzer.new.analyze
       Presenters::Stdout::Git.new(data).present
+    end
+
+    private def divider
+      @divider ||= "\n\n".freeze
     end
   end
 end
