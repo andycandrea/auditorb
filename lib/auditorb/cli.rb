@@ -26,6 +26,12 @@ module Auditorb
       puts production_gems.length
     end
 
+    desc 'stats', 'Run `rake stats`'
+    def stats
+      Rake.application.send(:load, 'Rakefile')
+      Rake::Task['stats'].invoke
+    end
+
     desc 'git_stats', 'Returns git statistics'
     def git_stats
       puts 'Git Statistics'
