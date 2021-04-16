@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+begin
+  require 'auditorb/cli'
+rescue LoadError => e
+  warn 'Could not load "auditorb/cli"'
+  exit -1
+end
+
+Auditorb::CLI.start
